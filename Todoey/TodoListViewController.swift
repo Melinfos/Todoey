@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    let itemArray =  ["Find Milk", "Buy Eggos", "Destory Demogorgon"]
+    var itemArray =  ["Find Milk", "Buy Eggos", "Destory Demogorgon"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +61,39 @@ class TodoListViewController: UITableViewController {
         
         
     }
+    
+    //MARK - Ajouter des nouveaux éléments.
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        //Variable locale qui va servir dans le code entier pour impression pour add item
+        var textField = UITextField()
+        
+        //Avoir un champ de texte, pour écrire et ajouter un élément dans la liste.
+        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        
+        // Créer une action
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            
+            //Action lorsque l'utilisateur clique sur le bouton pour ajouter un item(+), il ajoute dans le tableau.
+            self.itemArray.append(textField.text!)
+            
+            //reload -> recharge les lignes dans les sections de la table pour prendre les nouvelles données pour le mettre dans le tableau.
+            self.tableView.reloadData()
+            
+        }
+        //Ajouter un champ de texte dans l'alerte pour que l'utilisateur puisse écrire et écrire la variable pour sauvegarder dans la liste.
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        
+        // Ajoutons l'action à motre alerte.
+        alert.addAction(action)
+        
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
 }
 
 
