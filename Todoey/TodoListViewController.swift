@@ -10,16 +10,19 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
+  
     var itemArray =  ["Find Milk", "Buy Eggos", "Destory Demogorgon"]
+    
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // TableView delegate
-        
-        
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
     }
-    
+}
     //Mark - Méthode de source de données(Écrire -> TableView) pour spécifier ce que les cellules doivent afficher et combien de lignes.
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Va conter le nombre d'items dans le tableau.
@@ -76,6 +79,8 @@ class TodoListViewController: UITableViewController {
             
             //Action lorsque l'utilisateur clique sur le bouton pour ajouter un item(+), il ajoute dans le tableau.
             self.itemArray.append(textField.text!)
+            
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
             
             //reload -> recharge les lignes dans les sections de la table pour prendre les nouvelles données pour le mettre dans le tableau.
             self.tableView.reloadData()
