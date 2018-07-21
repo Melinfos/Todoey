@@ -20,7 +20,6 @@ class TodoListViewController: UITableViewController {
         
         let newItem = Item()
         newItem.title = "Find Mike"
-        newItem.done = true
         itemArray.append(newItem)
         
         let newItem2 = Item()
@@ -31,10 +30,10 @@ class TodoListViewController: UITableViewController {
         newItem3.title = "Destroy Demogorgon"
         itemArray.append(newItem3)
         
-        // TableView delegate
-//        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
-//           itemArray = items
-//    }
+        // TableView delegate - valeur par défaut pour sortir le tableau
+       if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
+          itemArray = items
+        }
 }
     //Mark - Méthode de source de données(Écrire -> TableView) pour spécifier ce que les cellules doivent afficher et combien de lignes.
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
